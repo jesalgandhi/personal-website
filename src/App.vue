@@ -39,7 +39,7 @@
                     </span>
                 </v-btn>
               </router-link>
-              <strong> Jesal Gandhi</strong> © {{ new Date().getFullYear() }}
+              <strong> Jesal Gandhi v2</strong> © {{ new Date().getFullYear() }}
               <span v-show="isResumePage==false">
                 <v-tooltip top>
                   <template v-slot:activator="{ on, attrs }">
