@@ -120,6 +120,27 @@
                       </template>
                       <span>Email</span>
                     </v-tooltip>
+                      <v-col>
+                        <v-tooltip bottom>
+                          <template v-slot:activator="{ on, attrs }">
+                            <span class='pt-2'>
+                              <v-chip
+                                link
+                                small
+                                outlined
+                                v-bind="attrs"
+                                v-on="on"
+                                v-bind:href="info['photos'][photo_num]['url']"
+                                target='_blank'
+                                v-bind:color="textColor"
+                              >
+                              Photo provided by Pexels.
+                              </v-chip>
+                            </span>
+                          </template>
+                        <span>Photo by {{ info['photos'][photo_num]['photographer'] }}</span>
+                        </v-tooltip>
+                    </v-col>
                   </v-col>
                 </v-row>
               </v-col>
@@ -272,7 +293,7 @@ const query = queries[Math.floor(Math.random() * queries.length)] // Random quer
         this.photo_num = Math.floor(Math.random() * (results_per_page - 1))
         this.textColor = contrastColor({ bgColor: photos['photos'][this.photo_num]['avg_color'] })
       });
-    }
+    },
   }
-  
+
 </script>

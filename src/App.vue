@@ -39,7 +39,7 @@
                     </span>
                 </v-btn>
               </router-link>
-              <strong> Jesal Gandhi v2</strong> © {{ new Date().getFullYear() }}
+              <strong> Jesal Gandhi </strong> © {{ new Date().getFullYear() }}
               <span v-show="isResumePage==false">
                 <v-tooltip top>
                   <template v-slot:activator="{ on, attrs }">
@@ -48,7 +48,7 @@
                       dark
                       v-bind="attrs"
                       v-on="on"
-                      class='pb-1 pl-1'
+                      class='pb-2 pl-1 pt-1'
                       >
                       mdi-image-area
                     </v-icon>
@@ -161,12 +161,13 @@
 </style>
 
 <script>
+import data from './components/MainCard.vue'
 
 export default {
   name: 'App',
 
   data: () => ({
-    //
+    pexels: data()
   }),
 
   computed: {
