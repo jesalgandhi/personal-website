@@ -7,8 +7,7 @@
           <v-img
             max-height="800"
             max-width="1800"
-            :src="info['photos'][photo_num]['src']['large2x']"
-            alt="https://wallpapersmug.com/u/1296ef/colorful-huawei-matebook.jpg"
+            :src="info.data['hits'][photo_num]['largeImageURL']"
             id='main-card'
             transition='none'
             class='shadow-drop-center'
@@ -130,15 +129,15 @@
                                 outlined
                                 v-bind="attrs"
                                 v-on="on"
-                                v-bind:href="info['photos'][photo_num]['url']"
                                 target='_blank'
+                                :href="info.data['hits'][photo_num]['pageURL']"
                                 v-bind:color="textColor"
                               >
-                              Photo provided by Pexels.
+                              Photo provided by Pixabay.
                               </v-chip>
                             </span>
                           </template>
-                        <span>Photo by {{ info['photos'][photo_num]['photographer'] }}</span>
+                        <span>Photo by {{ info.data['hits'][photo_num]['user'] }}</span>
                         </v-tooltip>
                     </v-col>
                   </v-col>
@@ -266,34 +265,37 @@
 <script>
 
 require('dotenv').config();
-import { createClient } from 'pexels';
+const axios = require('axios').default;
+import FastAverageColor from 'fast-average-color';
+const fac = new FastAverageColor();
 const { contrastColor } = require('contrast-color');
-
-const api_key = `${process.env.VUE_APP_API_KEY}`
-const client = createClient(api_key);
-const results_per_page = 30
-const queries = ['Nature','Abstract','Texture','Pattern','Background']
-const query = queries[Math.floor(Math.random() * queries.length)] // Random query from queries
-
 
   export default {
     name: 'MainCard',
 
     data: () => ({
       info: null,
-      photo_index: null,
       textColor: null,
       photo_num: null
     }),
 
     mounted () {
-      client.photos.search({ query, color: ! 'white', per_page: results_per_page }).then(photos => {
-        this.info = photos // Populates info with API call
-        this.photo_index = Math.floor(Math.random() * results_per_page) // Random result from API call
-        this.photo_num = Math.floor(Math.random() * (results_per_page - 1))
-        this.textColor = contrastColor({ bgColor: photos['photos'][this.photo_num]['avg_color'] })
-      });
+    
+    axios
+      .get('/.netlify/functions/token-hider/token-hider.js')
+      .then(response => {
+        this.info = response
+        const results_per_page = response.data['hits'].length
+        this.photo_num = Math.floor(Math.random() * (results_per_page - 1)) // Random result from API call
+
+        fac
+        .getColorAsync(response.data['hits'][this.photo_num]['largeImageURL'])
+        .then(color => {
+          this.textColor = contrastColor({ bgColor: color.hex })
+        })
+      })
     },
+
   }
 
 </script>
