@@ -52,7 +52,7 @@
                           color="white"
                           v-bind="attrs"
                           v-on="on"
-                          href='../../public/jesalgandhi.vcf'
+                          href='/jesalgandhi.vcf'
                         >
                           <v-icon dark x-large>
                             mdi-account-box
