@@ -52,15 +52,14 @@
                           color="white"
                           v-bind="attrs"
                           v-on="on"
-                          target='_blank'
-                          href='https://www.youtube.com/channel/UCUyWmXcMVrz4W7fjGHe2vPg'
+                          href='../../public/jesalgandhi.vcf'
                         >
                           <v-icon dark x-large>
-                            mdi-youtube
+                            mdi-account-box
                           </v-icon>
                         </v-btn>
                       </template>
-                      <span>YouTube</span>
+                      <span>Contact Card</span>
                     </v-tooltip>
 
                     <v-tooltip bottom>
